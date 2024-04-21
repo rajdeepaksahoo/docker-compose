@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  sbdocker:
+    image: mysql:latest
+    container_name: sbdocker
+    environment:
+      MYSQL_ROOT_PASSWORD: razdeepak
+      MYSQL_DATABASE: sbdocker
+#    ports:
+#      - "7758:3306"
+    networks:
+      - user-mysql
+    restart: always
+
+  springbootapp:
+    image: sb-docker-compose:1.0  # <-- This is where you specify the image name
+    container_name: sb-docker-compose
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://sbdocker:3306/sbdocker
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: razdeepak
+    depends_on:
+      - sbdocker
+    networks:
+      - user-mysql
+    restart: always
+
+networks:
+  user-mysql:
+    external: true
