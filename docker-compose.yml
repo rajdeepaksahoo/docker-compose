@@ -14,7 +14,7 @@ services:
     restart: always
 
   springbootapp:
-    image: razdeepak/sb-docker-compose  # <-- This is where you specify the image name
+    image: razdeepak/sb-docker-compose:latest  # <-- This is where you specify the image name
     container_name: sb-docker-compose
     ports:
       - "8080:8080"
